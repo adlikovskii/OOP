@@ -26,7 +26,7 @@ class Mentor:
 
 
 class Lecturer(Mentor):
-    grades = {}
+    pass
 
 
 class Reviewer(Mentor):
