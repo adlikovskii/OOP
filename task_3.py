@@ -1,5 +1,4 @@
 class Student:
-    GPA = []
     def __init__(self, name, surname, gender):
         self.name = name
         self.surname = surname
@@ -17,13 +16,30 @@ class Student:
             else:
                 lecturer.grades[course] = [grade]
             lecturer.GPA = lecturer.GPA + [grade]
-            Lecturer.GPA = Lecturer.GPA + [grade]
         else:
             return 'Ошибка'
 
+    def __eq__(self, other):
+        return sum(self.GPA) / len(self.GPA) == sum(other.GPA) / len(other.GPA)
+
+    def __ne__(self, other):
+        return sum(self.GPA) / len(self.GPA) != sum(other.GPA) / len(other.GPA)
+
+    def __lt__(self, other):
+        return sum(self.GPA) / len(self.GPA) < sum(other.GPA) / len(other.GPA)
+
+    def __gt__(self, other):
+        return sum(self.GPA) / len(self.GPA) > sum(other.GPA) / len(other.GPA)
+
+    def __le__(self, other):
+        return sum(self.GPA) / len(self.GPA) <= sum(other.GPA) / len(other.GPA)
+
+    def __ge__(self, other):
+        return sum(self.GPA) / len(self.GPA) >= sum(other.GPA) / len(other.GPA)
+
     def __str__(self):
         return ('Имя: ' + self.name + '\nФамилия: ' + self.surname + '\nСредняя оценка за домашние задания: '
-                + str(comparison(self)) + '\nКурсы в процессе изучения: : ' +
+                + str(sum(self.GPA)/len(self.GPA)) + '\nКурсы в процессе изучения: : ' +
                 ', '.join(self.courses_in_progress) + '\nЗавершенные курсы: ' + ', '.join(self.finished_courses))
 
 
@@ -37,11 +53,28 @@ class Mentor:
 
 
 class Lecturer(Mentor):
-    GPA = []
+
+    def __eq__(self, other):
+        return sum(self.GPA) / len(self.GPA) == sum(other.GPA) / len(other.GPA)
+
+    def __ne__(self, other):
+        return sum(self.GPA) / len(self.GPA) != sum(other.GPA) / len(other.GPA)
+
+    def __lt__(self, other):
+        return sum(self.GPA) / len(self.GPA) < sum(other.GPA) / len(other.GPA)
+
+    def __gt__(self, other):
+        return sum(self.GPA) / len(self.GPA) > sum(other.GPA) / len(other.GPA)
+
+    def __le__(self, other):
+        return sum(self.GPA) / len(self.GPA) <= sum(other.GPA) / len(other.GPA)
+
+    def __ge__(self, other):
+        return sum(self.GPA) / len(self.GPA) >= sum(other.GPA) / len(other.GPA)
 
     def __str__(self):
         return ('Имя: ' + self.name + '\nФамилия: ' + self.surname + '\nСредняя оценка за лекции: '
-                + str(comparison(self)))
+                + str(sum(self.GPA)/len(self.GPA)))
 
 
 class Reviewer(Mentor):
@@ -52,16 +85,11 @@ class Reviewer(Mentor):
             else:
                 student.grades[course] = [grade]
             student.GPA = student.GPA + [grade]
-            Student.GPA = Student.GPA + [grade]
         else:
             return 'Ошибка'
 
     def __str__(self):
         return 'Имя: ' + self.name + '\nФамилия: ' + self.surname
-
-
-def comparison(person):
-    return sum(person.GPA) / len(person.GPA)
 
 
 some_reviewer = Reviewer('Some', 'Buddy')
@@ -85,7 +113,5 @@ some_student.rate_hw(some_lecturer, 'Python', 9.8)
 print(f'{some_reviewer}\n\n{some_lecturer}\n\n{some_student}\n')
 
 # Сравнение лекторов и студентов
-print(comparison(some_student) > comparison(some_lecturer))
-# Для сравнения всех лекторов и студентов я добавил общий показатель
-print(comparison(Lecturer) == comparison(Student))
+print(some_student == some_lecturer)
 
