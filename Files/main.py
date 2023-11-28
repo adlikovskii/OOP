@@ -55,7 +55,7 @@ def task_3(txt):  # Задача №3
 
     final_file = open("final.txt", "w")
     for final in sort_txt_list:
-        final_file.write(f'{final[0]}\n')
+        final_file.write(f'{final[0]}\n{txt_list[final[0]][-1]}\n')
         for i in txt_list[final[0]]:
             try:
                 final_file.write(f"Строка № {i['line']} файла номер {final[0].replace('.txt','')}: {i['txt']}")
